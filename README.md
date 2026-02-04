@@ -1,20 +1,20 @@
-1. Project Setup
-1.1 Activate the virtual environment
+# **CONNECTLY PROJECT**
 
-Windows:
-venv\Scripts\activate
+**MO-IT152 - Integrative Programming and Technologies S3101**  
+**Team Members:** Joyce Ferrer, Ryu Ken Lindo
 
-macOS / Linux:
-source venv/bin/activate
+## **1. Project Setup**
+### **1.1 Activate the virtual environment**
+**Windows:**  venv\Scripts\activate
 
-2. Install required packages
+**macOS / Linux:**  source venv/bin/activate
 
-2.1 Install Django:  pip install django
-2.2 Install Django REST Framework (DRF):  pip install djangorestframework
-2.3 Install JWT authentication for DRF:  pip install djangorestframework-simplejwt
-2.4 Install CORS headers for API requests:  pip install django-cors-headers
+## **2. Install required packages**
+**2.1 Install Django:** pip install django
+**2.2 Install Django REST Framework (DRF):**  pip install djangorestframework
+**2.3 Install JWT authentication for DRF:**  pip install djangorestframework-simplejwt
+**2.4 Install CORS headers for API requests:**  pip install django-cors-headers
 
-3️. Verify installation
-
-3.1 Check Django version:  python -m django --version
-3.2 Check DRF installation:  pip show djangorestframework
+## **3. Verify installation**
+**3.1 Check Django version:**  python -m django --version
+**3.2 Check DRF installation:**  pip show djangorestframework
