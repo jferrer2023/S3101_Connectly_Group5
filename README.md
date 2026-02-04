@@ -7,7 +7,14 @@
 
 ## **1. Project Setup**
 
-### **1.1 Activate the virtual environment**
+### **1.1 Create the virtual environment**
+Create a virtual environment named `venv`:
+
+python -m venv venv
+
+
+
+### **1.2 Activate the virtual environment**
 
 **Windows:**  
 venv\Scripts\activate
