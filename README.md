@@ -45,8 +45,11 @@ pip install django-cors-headers
 
 **2.5 Install below for HTTPS:**  
 pip show Werkzeug
+
 pip install django-extensions
+
 pip install pyOpenSSL
+
 Git Bash app
 
 ---
