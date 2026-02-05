@@ -1,25 +1,9 @@
-#from django.urls import path
-#from . import views
+from rest_framework.routers import DefaultRouter
+from .views import UserViewSet, PostViewSet, CommentViewSet
 
+router = DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'posts', PostViewSet)
+router.register(r'comments', CommentViewSet)
 
-# urlpatterns = [
-#   path('users/', views.get_users, name='get_users'),
-#   path('users/create/', views.create_user, name='create_user'),
-#   path('posts/', views.get_posts, name='get_posts'),
-#   path('posts/create/', views.create_post, name='create_post'),
-    
-#   path('users/', UserListCreate.as_view(), name='user-list-create'),
-#   path('posts/', PostListCreate.as_view(), name='post-list-create'),
-#   path('comments/', CommentListCreate.as_view(), name='comment-list-create'), 
-
-from django.urls import path
-from .views import UserListCreate, PostListCreate, CommentListCreate
-
-
-urlpatterns = [
-    path('users/', UserListCreate.as_view(), name='user-list-create'),
-    path('posts/', PostListCreate.as_view(), name='post-list-create'),
-    path('comments/', CommentListCreate.as_view(), name='comment-list-create'),
-]
-
-
+urlpatterns = router.urls
