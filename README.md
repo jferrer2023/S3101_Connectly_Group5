@@ -48,6 +48,7 @@ pip show Werkzeug
 pip install django-extensions
 pip install pyOpenSSL
 Git Bash app
+
 ---
 
 ## **3. Verify installation**
