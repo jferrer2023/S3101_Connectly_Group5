@@ -43,7 +43,11 @@ pip install djangorestframework-simplejwt
 **2.4 Install CORS headers for API requests:**  
 pip install django-cors-headers
 
-
+**2.5 Install below for HTTPS:**  
+pip show Werkzeug
+pip install django-extensions
+pip install pyOpenSSL
+Git Bash app
 ---
 
 ## **3. Verify installation**
