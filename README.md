@@ -44,7 +44,7 @@ pip install djangorestframework-simplejwt
 pip install django-cors-headers
 
 **2.5 Install below for HTTPS:**  
-pip show Werkzeug
+pip install Werkzeug
 
 pip install django-extensions
 
