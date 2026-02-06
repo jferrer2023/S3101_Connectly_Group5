@@ -20,7 +20,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'posttype', 'privacy', 'content', 'author', 'created_at', 'comments']
+        fields = ['id', 'title', 'posttype', 'privacy', 'content', 'author', 'created_at', 'metadata', 'comments']
 
     def create(self, validated_data):
         # Ensure author is always the logged-in user
