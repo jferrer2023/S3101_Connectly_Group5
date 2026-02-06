@@ -66,6 +66,19 @@ pip show djangorestframework
 
 ---
 
+## **4. Design Patterns Testing**
+
+**4.1 Singleton:**  
+python singletons/test_logger.py
+
+python -m singletons.test_singleton
+
+
+**4.2 Factory Pattern:**  
+python factories/test_post_factory.py
+
+---
+
 **CMD Command to Run:**  
 
 python manage.py runserver_plus 127.0.0.1:8000 --cert-file cert.pem --key-file key.pem
