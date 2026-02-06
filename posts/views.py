@@ -1,17 +1,14 @@
 from rest_framework import viewsets
-from .models import User, Post, Comment
+from django.contrib.auth import get_user_model
+from .models import Post, Comment
 from .serializers import UserSerializer, PostSerializer, CommentSerializer
 from .permissions import IsOwnerOrAdmin
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from singletons.logger_singleton import LoggerSingleton
+from factories.post_factory import PostFactory
 
-# -------------------------------
-# Logger setup (singleton)
-# -------------------------------
-# Using LoggerSingleton ensures that the same logger instance
-# is used throughout the project. All logs go to the same file/format.
+User = get_user_model()
 logger = LoggerSingleton().get_logger()
-
 
 # -------------------------------
 # UserViewSet
@@ -19,13 +16,11 @@ logger = LoggerSingleton().get_logger()
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAdminUser]  # Only admins can access users
+    permission_classes = [IsAdminUser]
 
     def list(self, request, *args, **kwargs):
-        # Log when an admin fetches the user list
         logger.info(f"Admin {request.user.username} accessed user list")
         return super().list(request, *args, **kwargs)
-
 
 # -------------------------------
 # PostViewSet
@@ -35,23 +30,26 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = [DjangoModelPermissions, IsOwnerOrAdmin]
 
-    def perform_create(self, serializer):
-        # Assign logged-in user as author
-        serializer.save(author=self.request.user)
-        # Log post creation with title
-        logger.info(f"User {self.request.user.username} created a new post '{serializer.data.get('title')}'")
+def perform_create(self, serializer):
+    data = serializer.validated_data
+    post = PostFactory.create_post(
+        post_type=data.get('posttype', 'text'),
+        title=data['title'],
+        content=data.get('content', ''),
+        metadata=data.get('metadata', {}),
+        privacy=data.get('privacy', 'public'),
+        author=self.request.user
+    )
+    logger.info(f"User {self.request.user.username} created post '{post.title}'")
+
 
     def perform_update(self, serializer):
-        # Save updates
         serializer.save()
-        # Log post update with title
         logger.info(f"User {self.request.user.username} updated post '{serializer.data.get('title')}'")
 
     def perform_destroy(self, instance):
-        # Log deletion before removing from DB
         logger.info(f"User {self.request.user.username} deleted post '{instance.title}'")
         instance.delete()
-
 
 # -------------------------------
 # CommentViewSet
@@ -62,10 +60,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     permission_classes = [DjangoModelPermissions, IsOwnerOrAdmin]
 
     def perform_create(self, serializer):
-        # Assign logged-in user as author
         serializer.save(author=self.request.user)
-        # Log comment creation with post title snippet
         logger.info(
-            f"User {self.request.user.username} commented on post "
-            f"'{serializer.validated_data['post'].title[:30]}'"
+            f"User {self.request.user.username} commented on post '{serializer.validated_data['post'].title[:30]}'"
         )
