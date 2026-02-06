@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',  # Add Django REST Framework
     'posts',
     'tasks',
-    
-
+    'authentication',
+    'django_extensions',
 ]
 
 
@@ -131,3 +131,23 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     ],
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissions',
+    ],
+}
+
+LOGIN_REDIRECT_URL = '/posts/posts/'
+LOGOUT_REDIRECT_URL = '/api-auth/login/'
+
+# Enforce HTTPS 
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
