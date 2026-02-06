@@ -43,6 +43,15 @@ pip install djangorestframework-simplejwt
 **2.4 Install CORS headers for API requests:**  
 pip install django-cors-headers
 
+**2.5 Install Werkzeug:** 
+pip install Werkzeug
+
+**2.6 Install django-extensions:** 
+pip install django-extensions
+
+**2.7 Install pyOpenSSL:**
+pip install pyOpenSSL
+
 ---
 
 ## **3. Verify installation**
@@ -53,3 +62,14 @@ python -m django --version
 
 **3.2 Check DRF installation:**  
 pip show djangorestframework
+
+
+---
+
+**CMD Command to Run:**  
+
+python manage.py runserver_plus 127.0.0.1:8000 --cert-file cert.pem --key-file key.pem
+
+**Web Link:**  
+
+https://127.0.0.1:8000/api-auth/login/
