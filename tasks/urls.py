@@ -1,13 +1,8 @@
-#tasks urls not working in web
+from rest_framework.routers import DefaultRouter
+from .views import UserViewSet, TaskViewSet
 
-from django.urls import path
-from .views import UserListCreate, TaskListCreate
+router = DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'tasks', TaskViewSet)
 
-
-urlpatterns = [
-    path('users/', UserListCreate.as_view(), name='user-list-create'),
-    path('tasks/', TaskListCreate.as_view(), name='task-list-create'),
-    
-]
-
-
+urlpatterns = router.urls

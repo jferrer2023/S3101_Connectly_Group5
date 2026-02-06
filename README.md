@@ -43,7 +43,6 @@ pip install djangorestframework-simplejwt
 **2.4 Install CORS headers for API requests:**  
 pip install django-cors-headers
 
-
 ---
 
 ## **3. Verify installation**
