@@ -134,7 +134,8 @@ REST_FRAMEWORK = {
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication', # Web login
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Token for postman
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissions',
@@ -151,3 +152,11 @@ CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # access token valid 1 hour
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # refresh token valid 1 day
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
