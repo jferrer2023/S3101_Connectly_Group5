@@ -5,6 +5,12 @@
 
 ---
 
+## **Test Users**
+root: root (Admin)
+Moderator1: abcd1234! (Moderator)
+User1: abcd1234!
+User2: abcd1234!
+
 ## **1. Project Setup**
 
 ### **1.1 Create the virtual environment**
