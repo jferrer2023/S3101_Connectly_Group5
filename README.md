@@ -94,4 +94,14 @@ python manage.py runserver_plus 127.0.0.1:8000 --cert-file cert.pem --key-file k
 
 **Web Link:**  
 
-https://127.0.0.1:8000/api-auth/login/
+- Login Page - https://127.0.0.1:8000/api-auth/login/
+- Home Page - https://127.0.0.1:8000/posts/posts/
+- User Management - https://127.0.0.1:8000/posts/users/
+- Select a User to Amend/Delete e.g. id:3 - https://127.0.0.1:8000/posts/users/3/ 
+- Select a post to Amend/Delete e.g. id:3 - https://127.0.0.1:8000/posts/posts/2/
+- Comments - https://127.0.0.1:8000/posts/comments
+- Select a comment to Amend/Delete e.g. id:26 - https://127.0.0.1:8000/posts/comments/26/
+<br>
+- https://127.0.0.1:8000/tasks/tasks/
+- https://127.0.0.1:8000/tasks/users/
+
