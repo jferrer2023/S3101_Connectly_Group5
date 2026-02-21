@@ -12,23 +12,18 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Base folder, use it to build paths (DB, static, templates)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECRET KEY - used for encrypting sessions, tokens, etc. Keep secret in production
 SECRET_KEY = 'django-insecure-mnh!%)g1)!%fmm5s1gnm4ow*r7x90j!!s*ha61vtgw+%*%50ws'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# Show debug pages. Turn off in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] # Domains allowed. Empty = localhost only
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,8 +38,6 @@ INSTALLED_APPS = [
     'authentication',
     'django_extensions',
 ]
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -134,16 +127,21 @@ REST_FRAMEWORK = {
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication', # Web login
-        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Token for postman
+        'rest_framework.authentication.SessionAuthentication',  # Web login
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Token for Postman
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissions',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,  # default number of items per page
 }
 
 LOGIN_REDIRECT_URL = '/posts/posts/'
 LOGOUT_REDIRECT_URL = '/api-auth/login/'
+
+# Automatically append trailing slashes to URLs
+# APPEND_SLASH = True
 
 # Enforce HTTPS 
 SECURE_SSL_REDIRECT = True
@@ -160,3 +158,12 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # refresh token valid 1 day
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+
