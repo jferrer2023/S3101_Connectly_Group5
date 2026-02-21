@@ -9,15 +9,12 @@ from factories.post_factory import PostFactory
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
-<<<<<<< HEAD
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import generics
-=======
 from django.core.cache import cache
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import generics
 from rest_framework.views import APIView
->>>>>>> joyce_HW5_HW7_V2
 
 
 
@@ -52,12 +49,9 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = [DjangoModelPermissions, IsOwnerOrAdminOrModerator]
 
-<<<<<<< HEAD
-=======
     def get_queryset(self):
         return Post.objects.all().order_by('-created_at')
     
->>>>>>> joyce_HW5_HW7_V2
     # Corrected perform_create
     def perform_create(self, serializer):
         # Save serializer → returns a Post model instance
@@ -141,8 +135,6 @@ class PostCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         post_id = self.kwargs['post_id']
         return Comment.objects.filter(post_id=post_id)
-<<<<<<< HEAD
-=======
 
 # Newsfeed
 class FeedView(generics.ListAPIView):
@@ -165,4 +157,3 @@ class FeedView(generics.ListAPIView):
         cache.set('latest_feed', queryset, 30)
         return queryset
 
->>>>>>> joyce_HW5_HW7_V2
