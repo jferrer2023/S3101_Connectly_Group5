@@ -158,6 +158,16 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # refresh token valid 1 day
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+<<<<<<< HEAD
 
+=======
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+>>>>>>> joyce_HW5_HW7_V2
 
 

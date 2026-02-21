@@ -9,8 +9,15 @@ from factories.post_factory import PostFactory
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+<<<<<<< HEAD
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import generics
+=======
+from django.core.cache import cache
+from rest_framework.pagination import PageNumberPagination
+from rest_framework import generics
+from rest_framework.views import APIView
+>>>>>>> joyce_HW5_HW7_V2
 
 
 
@@ -45,6 +52,12 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = [DjangoModelPermissions, IsOwnerOrAdminOrModerator]
 
+<<<<<<< HEAD
+=======
+    def get_queryset(self):
+        return Post.objects.all().order_by('-created_at')
+    
+>>>>>>> joyce_HW5_HW7_V2
     # Corrected perform_create
     def perform_create(self, serializer):
         # Save serializer → returns a Post model instance
@@ -128,3 +141,28 @@ class PostCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         post_id = self.kwargs['post_id']
         return Comment.objects.filter(post_id=post_id)
+<<<<<<< HEAD
+=======
+
+# Newsfeed
+class FeedView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    pagination_class = PageNumberPagination
+
+    def get_queryset(self):
+        cached_feed = cache.get('latest_feed')
+        if cached_feed:
+            return cached_feed
+
+        queryset = Post.objects.all() \
+            .select_related('author') \
+            .prefetch_related('comments', 'likes') \
+            .order_by('-created_at')
+
+        # Store queryset in cache for 30 seconds
+        # The number 30 here is the cache timeout in seconds
+        # During this time, repeated requests will return cached data instead of hitting the database
+        cache.set('latest_feed', queryset, 30)
+        return queryset
+
+>>>>>>> joyce_HW5_HW7_V2
