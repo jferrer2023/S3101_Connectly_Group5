@@ -37,41 +37,21 @@ source venv/bin/activate
 
 ## **2. Install required packages**
 
-**2.1 Install Django:**  
-pip install django
-
-
-**2.2 Install Django REST Framework (DRF):**  
-pip install djangorestframework
-
-
-**2.3 Install JWT authentication for DRF:**  
-pip install djangorestframework-simplejwt
-
-
-**2.4 Install CORS headers for API requests:**  
-pip install django-cors-headers
-
-**2.5 Install Werkzeug:** 
-pip install Werkzeug
-
-**2.6 Install django-extensions:** 
-pip install django-extensions
-
-**2.7 Install pyOpenSSL:**
-pip install pyOpenSSL
+- pip install django
+- pip install djangorestframework
+- pip install djangorestframework-simplejwt
+- pip install django-cors-headers
+- pip install Werkzeug
+- pip install django-extensions
+- pip install pyOpenSSL
+- pip install requests google-auth google-auth-oauthlib
 
 ---
 
 ## **3. Verify installation**
 
-**3.1 Check Django version:**  
-python -m django --version
-
-
-**3.2 Check DRF installation:**  
-pip show djangorestframework
-
+- python -m django --version
+- pip show djangorestframework
 
 ---
 
@@ -93,6 +73,22 @@ python factories/test_post_factory.py
 python manage.py runserver_plus 127.0.0.1:8000 --cert-file cert.pem --key-file key.pem
 
 **Web Links:**  
+
+MS2
+
+- https://127.0.0.1:8000/api-auth/login/
+- https://127.0.0.1:8000/posts/posts/
+- https://127.0.0.1:8000/posts/posts/1/
+- https://127.0.0.1:8000/posts/posts/1/like/
+- https://127.0.0.1:8000/posts/posts/1/comments/
+- https://127.0.0.1:8000/posts/posts/1/comments/11/
+- https://127.0.0.1:8000/posts/feed
+- https://127.0.0.1:8000/posts/posts/?page=2
+- https://127.0.0.1:8000/posts/posts/1/comments/?page=2
+- https://127.0.0.1:8000/posts/feed/?page=2
+
+
+MS1
 
 - Login Page - https://127.0.0.1:8000/api-auth/login/
 - Home Page - https://127.0.0.1:8000/posts/posts/
