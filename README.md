@@ -75,7 +75,10 @@ python manage.py runserver_plus 127.0.0.1:8000 --cert-file cert.pem --key-file k
 
 MS2
 
+- https://127.0.0.1:8000/api/token/
+- https://127.0.0.1:8000/auth/google/
 - https://127.0.0.1:8000/api-auth/login/
+- https://127.0.0.1:8000/posts/users/
 - https://127.0.0.1:8000/posts/posts/
 - https://127.0.0.1:8000/posts/posts/1/
 - https://127.0.0.1:8000/posts/posts/1/like/
