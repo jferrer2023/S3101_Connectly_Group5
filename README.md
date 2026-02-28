@@ -45,7 +45,6 @@ source venv/bin/activate
 - pip install django-extensions
 - pip install pyOpenSSL
 - pip install requests google-auth google-auth-oauthlib
-
 ---
 
 ## **3. Verify installation**
