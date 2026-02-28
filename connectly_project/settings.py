@@ -159,6 +159,7 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -167,3 +168,4 @@ CACHES = {
 }
 
 GOOGLE_CLIENT_ID = "631335029593-77gl3de0s87scfetun13db3v0oocv882.apps.googleusercontent.com"
+

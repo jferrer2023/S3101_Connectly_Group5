@@ -9,6 +9,8 @@ from factories.post_factory import PostFactory
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
+from rest_framework import generics
 from django.core.cache import cache
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import generics
@@ -115,6 +117,7 @@ class CommentPagination(PageNumberPagination):
 class PostCommentsView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
     permission_classes = [CommentPermission] #Revised
+    permission_classes = [IsAuthenticated]
     pagination_class = CommentPagination
 
     def get_queryset(self):
@@ -129,6 +132,7 @@ class PostCommentsView(generics.ListCreateAPIView):
 class PostCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CommentSerializer
     permission_classes = [CommentPermission] #Revised
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         post_id = self.kwargs['post_id']

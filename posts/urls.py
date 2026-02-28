@@ -23,6 +23,7 @@ urlpatterns = [
     #Newsfeed
     path('feed/', FeedView.as_view(), name='feed'),
 
+
     # View all comments for a post and create a comment
     path('posts/<int:post_id>/comments/', PostCommentsView.as_view(), name='post-comments'),
 
