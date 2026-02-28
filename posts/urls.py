@@ -1,7 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import UserViewSet, PostViewSet, CommentViewSet, PostCommentsView, PostCommentDetailView
-
 from .views import UserViewSet, PostViewSet, CommentViewSet, PostCommentsView, PostCommentDetailView, FeedView
 
 
@@ -17,7 +16,6 @@ from .views import UserViewSet, PostViewSet, CommentViewSet, PostCommentsView, P
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'posts', PostViewSet)
-
 
 #router.register(r'comments', CommentViewSet)
 

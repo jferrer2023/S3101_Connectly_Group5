@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from django.contrib.auth import get_user_model
 from .models import Post, Comment, Like
 from .serializers import UserSerializer, PostSerializer, CommentSerializer, EmptySerializer
-from .permissions import IsOwnerOrAdminOrModerator
+from .permissions import PostPermission, CommentPermission
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser, IsAuthenticated
 from singletons.logger_singleton import LoggerSingleton
 from factories.post_factory import PostFactory
@@ -47,7 +47,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [DjangoModelPermissions, IsOwnerOrAdminOrModerator]
+    permission_classes = [PostPermission] #Revised
 
     def get_queryset(self):
         return Post.objects.all().order_by('-created_at')
@@ -97,7 +97,7 @@ class PostViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [DjangoModelPermissions, IsOwnerOrAdminOrModerator]
+    permission_classes = [CommentPermission] #Revised
 
     def perform_create(self, serializer):
         comment = serializer.save(author=self.request.user)
@@ -116,6 +116,7 @@ class CommentPagination(PageNumberPagination):
 # Comments CRUD
 class PostCommentsView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
+    permission_classes = [CommentPermission] #Revised
     permission_classes = [IsAuthenticated]
     pagination_class = CommentPagination
 
@@ -130,6 +131,7 @@ class PostCommentsView(generics.ListCreateAPIView):
 # Retrieve / update / delete a specific comment under a post
 class PostCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CommentSerializer
+    permission_classes = [CommentPermission] #Revised
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
