@@ -5,14 +5,8 @@
 
 ---
 
-## **Test Users**
-root: root (Admin)
-
-Moderator1: abcd1234! (Moderator)
-
-User1: abcd1234!
-
-User2: abcd1234!
+## **User Guide**
+https://drive.google.com/file/d/1fAyKcfTIbx7El6jHcD1Vz54o5yDtbuv3/view?usp=sharing
 
 ## **1. Project Setup**
 
@@ -99,7 +93,6 @@ MS1
 - Select a post to Amend/Delete e.g. id:2 - https://127.0.0.1:8000/posts/posts/2/
 - Comments - https://127.0.0.1:8000/posts/comments
 - Select a comment to Amend/Delete e.g. id:26 - https://127.0.0.1:8000/posts/comments/26/
-
 - https://127.0.0.1:8000/tasks/tasks/
 - https://127.0.0.1:8000/tasks/users/
 
