@@ -8,6 +8,9 @@
 ## **User Guide**
 https://drive.google.com/file/d/1fAyKcfTIbx7El6jHcD1Vz54o5yDtbuv3/view?usp=sharing
 
+## **AI Disclosure Clause**
+In the development of the Connectly project, artificial intelligence (AI) tools have been utilized to assist in coding, debugging, and research tasks. AI guidance was used to generate code suggestions, troubleshoot issues, and explore implementation approaches. All AI-assisted contributions were reviewed and validated by the development team to ensure correctness, security, and alignment with project requirements.
+
 ## **1. Project Setup**
 
 ### **1.1 Create the virtual environment**
