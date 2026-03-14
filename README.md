@@ -6,7 +6,7 @@
 ---
 
 ## **User Guide**
-https://drive.google.com/file/d/1fAyKcfTIbx7El6jHcD1Vz54o5yDtbuv3/view?usp=sharing
+https://drive.google.com/drive/folders/17lcJMpgH9iR0eiD2OCU_ivSm6Xqa8ooS
 
 ## **AI Disclosure Clause**
 The Connectly project is fully designed and implemented by the development team. Artificial intelligence (AI) tools were used solely as a reference to guide coding practices, explore implementation approaches, test code, and support research. AI provided suggestions and examples for learning and debugging purposes, while the team retained full control over development, testing, and implementation choices to maintain accuracy, security, and alignment with project goals.
@@ -73,14 +73,16 @@ python manage.py runserver_plus 127.0.0.1:8000 --cert-file cert.pem --key-file k
 MS2
 
 - https://127.0.0.1:8000/api/token/
-- https://127.0.0.1:8000/auth/google/
+- https://127.0.0.1:8000/auth/google/login/
 - https://127.0.0.1:8000/api-auth/login/
+- https://127.0.0.1:8000/posts/user/
 - https://127.0.0.1:8000/posts/users/
 - https://127.0.0.1:8000/posts/posts/
 - https://127.0.0.1:8000/posts/posts/1/
 - https://127.0.0.1:8000/posts/posts/1/like/
 - https://127.0.0.1:8000/posts/posts/1/comments/
-- https://127.0.0.1:8000/posts/posts/1/comments/11/
+- https://127.0.0.1:8000/posts/posts/1/comment/
+- https://127.0.0.1:8000/posts/posts/1/comment/11/
 - https://127.0.0.1:8000/posts/feed
 - https://127.0.0.1:8000/posts/posts/?page=2
 - https://127.0.0.1:8000/posts/posts/1/comments/?page=2

@@ -1,8 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, PostViewSet, CommentViewSet, PostCommentsView, PostCommentDetailView
-from .views import UserViewSet, PostViewSet, CommentViewSet, PostCommentsView, PostCommentDetailView, FeedView
-
+#from .views import UserViewSet, PostViewSet, CommentViewSet, PostCommentsView, PostCommentDetailView
+from .views import UserViewSet, PostViewSet, CommentViewSet, PostCommentsView, PostCommentDetailView, FeedView, UserListView
 
 # posts/urls.py
 # -------------------------------
@@ -14,7 +13,7 @@ from .views import UserViewSet, PostViewSet, CommentViewSet, PostCommentsView, P
 
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet)
+router.register(r'user', UserViewSet)
 router.register(r'posts', PostViewSet)
 
 #router.register(r'comments', CommentViewSet)
@@ -26,10 +25,12 @@ urlpatterns = [
 
 
     # View all comments for a post and create a comment
-    path('posts/<int:post_id>/comments/', PostCommentsView.as_view(), name='post-comments'),
+    path('posts/<int:post_id>/comment/', PostCommentsView.as_view(), name='post-comment'),
 
     # Update / delete / get a specific comment
-    path('posts/<int:post_id>/comments/<int:pk>/', PostCommentDetailView.as_view(), name='post-comment-detail'),
+    path('posts/<int:post_id>/comment/<int:pk>/', PostCommentDetailView.as_view(), name='post-comment-detail'),
+
+    path('users/', UserListView.as_view(), name='user-list'),
 
     # Include other routes
     path('', include(router.urls)),

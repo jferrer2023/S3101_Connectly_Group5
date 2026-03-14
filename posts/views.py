@@ -4,6 +4,7 @@ from .models import Post, Comment, Like
 from .serializers import UserSerializer, PostSerializer, CommentSerializer, EmptySerializer
 from .permissions import PostPermission, CommentPermission
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser, IsAuthenticated
+from rest_framework.generics import ListAPIView
 from singletons.logger_singleton import LoggerSingleton
 from factories.post_factory import PostFactory
 from rest_framework.decorators import action
@@ -15,6 +16,7 @@ from django.core.cache import cache
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import generics
 from rest_framework.views import APIView
+from django.db.models import Q
 
 
 
@@ -50,7 +52,14 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = [PostPermission] #Revised
 
     def get_queryset(self):
-        return Post.objects.all().order_by('-created_at')
+        user = self.request.user
+
+        if user.is_staff or user.groups.filter(name='Moderator').exists():
+            return Post.objects.all().order_by('-created_at')
+
+        return Post.objects.filter(
+            Q(privacy='public') | Q(author=user)
+        ).order_by('-created_at')
     
     # Corrected perform_create
     def perform_create(self, serializer):
@@ -117,7 +126,6 @@ class CommentPagination(PageNumberPagination):
 class PostCommentsView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
     permission_classes = [CommentPermission] #Revised
-    permission_classes = [IsAuthenticated]
     pagination_class = CommentPagination
 
     def get_queryset(self):
@@ -132,7 +140,7 @@ class PostCommentsView(generics.ListCreateAPIView):
 class PostCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CommentSerializer
     permission_classes = [CommentPermission] #Revised
-    permission_classes = [IsAuthenticated]
+    
 
     def get_queryset(self):
         post_id = self.kwargs['post_id']
@@ -142,20 +150,34 @@ class PostCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
 class FeedView(generics.ListAPIView):
     serializer_class = PostSerializer
     pagination_class = PageNumberPagination
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        cached_feed = cache.get('latest_feed')
+        user = self.request.user
+        cache_key = f'latest_feed_user_{user.id}'
+
+        cached_feed = cache.get(cache_key)
         if cached_feed:
             return cached_feed
 
-        queryset = Post.objects.all() \
-            .select_related('author') \
+        if user.is_staff or user.groups.filter(name='Moderator').exists():
+            queryset = Post.objects.all()
+        else:
+            queryset = Post.objects.filter(
+                Q(privacy='public') | Q(author=user)
+            )
+
+        queryset = queryset.select_related('author') \
             .prefetch_related('comments', 'likes') \
             .order_by('-created_at')
 
-        # Store queryset in cache for 30 seconds
-        # The number 30 here is the cache timeout in seconds
-        # During this time, repeated requests will return cached data instead of hitting the database
-        cache.set('latest_feed', queryset, 30)
+        cache.set(cache_key, queryset, 30)
         return queryset
 
+
+User = get_user_model()
+
+class UserListView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
