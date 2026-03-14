@@ -1,18 +1,28 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 
-class PostPermission(BasePermission): #Revised
+class PostPermission(BasePermission):
+
     def has_permission(self, request, view):
         return request.user and request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj):
         user = request.user
 
-        # READ → everyone
+        # PRIVATE POST RULE
+        if obj.privacy == "private":
+            if not (
+                obj.author == user or
+                user.is_staff or
+                user.groups.filter(name='Moderator').exists()
+            ):
+                return False
+
+        # READ operations (GET, HEAD, OPTIONS)
         if request.method in SAFE_METHODS:
             return True
 
-        # Allow "like" action for any authenticated user
+        # Allow like action for authenticated users
         if getattr(view, 'action', None) == 'like':
             return True
 
