@@ -154,25 +154,35 @@ class FeedView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        cache_key = f'latest_feed_user_{user.id}'
-
-        cached_feed = cache.get(cache_key)
-        if cached_feed:
-            return cached_feed
-
-        if user.is_staff or user.groups.filter(name='Moderator').exists():
-            queryset = Post.objects.all()
-        else:
-            queryset = Post.objects.filter(
-                Q(privacy='public') | Q(author=user)
-            )
-
-        queryset = queryset.select_related('author') \
-            .prefetch_related('comments', 'likes') \
-            .order_by('-created_at')
-
-        cache.set(cache_key, queryset, 30)
+        queryset = Post.objects.filter(
+            Q(privacy='public') | Q(author=user)
+        ).select_related('author').prefetch_related('comments', 'likes').order_by('-created_at')
         return queryset
+
+    def list(self, request, *args, **kwargs):
+        user = request.user
+        page = request.query_params.get('page', 1)
+        cache_key = f'feed_user_{user.id}_page_{page}'
+        cached_data = cache.get(cache_key)
+
+        if cached_data:
+            logger.info(f"CACHE HIT ✅ for user {user.username} page {page}")
+            response = Response(cached_data)
+            response["X-Cache"] = "HIT"
+        else:
+            logger.info(f"CACHE MISS ❌ for user {user.username} page {page}")
+            queryset = self.get_queryset()
+            page_obj = self.paginate_queryset(queryset)
+            serializer = self.get_serializer(page_obj, many=True)
+            response_data = self.get_paginated_response(serializer.data).data
+            cache.set(cache_key, response_data, timeout=30)
+            response = Response(response_data)
+            response["X-Cache"] = "MISS"
+
+        # Add request logging in the desired format
+        logger.info(f"INFO - {request.method} {request.path} - status={response.status_code}")
+
+        return response
 
 
 User = get_user_model()
