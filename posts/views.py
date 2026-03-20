@@ -82,7 +82,13 @@ class PostViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'])
     def comments(self, request, pk=None):
         post = self.get_object()
-        comments = post.comments.all()
+        comments = post.comments.all().order_by('-created_at')
+
+        page = self.paginate_queryset(comments)
+        if page is not None:
+            serializer = CommentSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
 
