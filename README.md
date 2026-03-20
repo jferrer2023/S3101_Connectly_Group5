@@ -70,7 +70,7 @@ python manage.py runserver_plus 127.0.0.1:8000 --cert-file cert.pem --key-file k
 
 **Web Links:**  
 
-MS2
+MS2 - TA
 
 - https://127.0.0.1:8000/api/token/
 - https://127.0.0.1:8000/auth/google/login/
